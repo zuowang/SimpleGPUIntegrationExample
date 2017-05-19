@@ -8,3 +8,40 @@ place of the RDD (not yet completed).
 
 There are scripts to build the program locally, run in local mode, and run in distributed mode. 
 You should modify the first line or two to point to your own instalation of Scala and Spark.
+
+modify utilities.h since "extern \"C\"" can not be used in newest cuda(cuda7.5) 
+
+###How to run
+download spark-1.6.0-bin-hadoop2.6.tgz
+wget https://d3kbcqa49mib13.cloudfront.net/spark-1.6.0-bin-hadoop2.6.tgz
+tar zxf spark-1.6.0-bin-hadoop2.6.tgz
+
+download scala-2.10.5.tgz
+wget https://downloads.lightbend.com/scala/2.10.5/scala-2.10.5.tgz
+tar zxf scala-2.10.5.tgz
+
+export JAVA_HOME=/usr/lib/jvm/java-1.8.0
+
+cd spark-1.6.0-bin-hadoop2.6
+vi conf/spark-env.sh
+add:
+SCALA_HOME=/tmp/ssh-yixIuEyDOY9z/SimpleGPUIntegrationExample/scala-2.10.5
+JAVA_HOME=/usr/lib/jvm/java-1.8.0
+SPARK_MASTER_IP=10.214.129.15
+SPARK_WORKER_MEMORY=2g
+master=spark://10.214.129.15:7070
+
+vi conf/slaves
+add:
+10.214.129.15
+
+./sbin/start-all.sh
+
+edit build.sh
+SCALA_HOME=/home/zhaoxudong5/SimpleGPUIntegrationExample/scala-2.10.5
+SPARK_HOME=/home/zhaoxudong5/SimpleGPUIntegrationExample/spark-1.6.0-bin-hadoop2.6
+
+./build.sh
+
+export SPARK_HOME=/home/zhaoxudong5/SimpleGPUIntegrationExample/spark-1.6.0-bin-hadoop2.6
+$SPARK_HOME/bin/spark-submit --master local[*] --class com.ibm.spark.gpu.simple.JNITest --driver-library-path `pwd` JNITest.jar

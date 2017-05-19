@@ -33,8 +33,8 @@ inline void __cudaCheckError( cudaError_t err, const char *file, const int line 
     }
 }
 
-#ifdef __cplusplus
-extern "C"
-#endif
+// #ifdef __cplusplus
+// extern "C"
+// #endif
 int get_gpu();
 #endif
