@@ -27,21 +27,21 @@ vi conf/spark-env.sh
 add:
 SCALA_HOME=/tmp/ssh-yixIuEyDOY9z/SimpleGPUIntegrationExample/scala-2.10.5
 JAVA_HOME=/usr/lib/jvm/java-1.8.0
-SPARK_MASTER_IP=10.214.129.15
+SPARK_MASTER_IP=xx.xx.xx.xx
 SPARK_WORKER_MEMORY=2g
-master=spark://10.214.129.15:7070
+master=spark://xx.xx.xx.xx:7070
 
 vi conf/slaves
 add:
-10.214.129.15
+xx.xx.xx.xx
 
 ./sbin/start-all.sh
 
 edit build.sh
-SCALA_HOME=/home/zhaoxudong5/SimpleGPUIntegrationExample/scala-2.10.5
-SPARK_HOME=/home/zhaoxudong5/SimpleGPUIntegrationExample/spark-1.6.0-bin-hadoop2.6
+SCALA_HOME=/tmp/ssh-yixIuEyDOY9z/SimpleGPUIntegrationExample/scala-2.10.5
+SPARK_HOME=/tmp/ssh-yixIuEyDOY9z/SimpleGPUIntegrationExample/spark-1.6.0-bin-hadoop2.6
 
 ./build.sh
 
-export SPARK_HOME=/home/zhaoxudong5/SimpleGPUIntegrationExample/spark-1.6.0-bin-hadoop2.6
+export SPARK_HOME=/tmp/ssh-yixIuEyDOY9z/SimpleGPUIntegrationExample/spark-1.6.0-bin-hadoop2.6
 $SPARK_HOME/bin/spark-submit --master local[*] --class com.ibm.spark.gpu.simple.JNITest --driver-library-path `pwd` JNITest.jar
